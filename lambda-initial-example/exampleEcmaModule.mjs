@@ -6,7 +6,9 @@ import { connectToDatabase } from "./database/connection.mjs";
 await connectToDatabase(process.env.MONGO_URI);
 
 export async function handler(event, _context, callback) {
-  const { secret } = await getParameters("nodebr/secret");
+  // When defiend inside handler, will be executed every context reutilization
+  // const { secret } = await getParameters("nodebr/secret");
+
   const { name, email, password } = JSON.parse(event.body);
 
   const user = await User.create({
