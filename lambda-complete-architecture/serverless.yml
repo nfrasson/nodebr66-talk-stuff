@@ -1,0 +1,53 @@
+service: lambda-complete-architecture
+frameworkVersion: "^3"
+
+provider:
+  name: aws
+  stage: dev
+  region: sa-east-1
+  runtime: nodejs16.x
+  timeout: 10
+  memorySize: 256
+  architecture: arm64
+  logRetentionInDays: 1
+  apiGateway:
+    shouldStartNameWithService: true
+  versionFunctions: false
+  deploymentMethod: direct
+  environment:
+    MONGO_URI: ${ssm:${self:service}-${self:provider.stage}-mongouri}
+    JWT_SECRET: ${ssm:${self:service}-${self:provider.stage}-jwtsecret}
+
+layers:
+  layerDefault:
+    name: ${self:service}-${self:provider.stage}-layerDefault
+    description: "Default libraries"
+    path: ./layers/layerDefault
+
+package:
+  patterns:
+    - "!./layers/**"
+    - "!./lambda/**"
+    - "!./node_modules/**"
+    - "!./*.json"
+
+functions:
+  register:
+    handler: dist/functions/user/register.handler
+    events:
+      - http:
+          path: /user/register
+          method: post
+          cors: true
+    layers:
+      - !Ref LayerDefaultLambdaLayer
+
+  login:
+    handler: dist/functions/user/login.handler
+    events:
+      - http:
+          path: /user/login
+          method: post
+          cors: true
+    layers:
+      - !Ref LayerDefaultLambdaLayer

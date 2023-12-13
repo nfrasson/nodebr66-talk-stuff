@@ -1,0 +1,21 @@
+service: nodebr66-talks-stuff
+frameworkVersion: "^3"
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  stage: dev
+  region: sa-east-1
+
+package:
+  patterns:
+    - "!node_modules/**"
+    - "!*.json"
+
+functions:
+  exampleFunction:
+    handler: exampleModule.handler
+    events:
+      - http:
+          path: example
+          method: get

@@ -1,0 +1,8 @@
+{
+  "name": "lambda-initial-example",
+  "scripts": {
+    "deploy": "serverless deploy --verbose"
+  },
+  "author": "Nicolas Frasson",
+  "license": "MIT"
+}
