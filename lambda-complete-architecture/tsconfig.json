@@ -19,7 +19,9 @@
     "forceConsistentCasingInFileNames": false,
     "paths": {
       "joi": ["layers/layerDefault/nodejs/node_modules/joi"],
-      "mongoose": ["layers/layerDefault/nodejs/node_modules/mongoose"]
+      "mongoose": ["layers/layerDefault/nodejs/node_modules/mongoose"],
+      "bcryptjs": ["layers/layerDefault/nodejs/node_modules/bcryptjs"],
+      "jsonwebtoken": ["layers/layerDefault/nodejs/node_modules/jsonwebtoken"]
     }
   }
 }

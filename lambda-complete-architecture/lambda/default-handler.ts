@@ -24,11 +24,6 @@ export const LambdaDefaultHandler = class {
     event: APIGatewayProxyEvent
   ): Promise<void | APIGatewayProxyResult> {
     try {
-      if (event.source === "serverless-plugin-warmup") {
-        console.log("WarmUp - Lambda is warm!");
-        return "Lambda is warm!";
-      }
-
       const $body = await this.requestBodySchema.validateAsync(
         concatenateData(event),
         {
