@@ -3,14 +3,31 @@ frameworkVersion: "^3"
 
 provider:
   name: aws
-  runtime: nodejs18.x
   stage: dev
   region: sa-east-1
+  runtime: nodejs20.x
+  timeout: 15
+  memorySize: 256
+  architecture: arm64
+  logRetentionInDays: 1
+  apiGateway:
+    shouldStartNameWithService: true
+  versionFunctions: false
+  deploymentMethod: direct
+  environment:
+    MONGO_URI: ${ssm:${self:service}-${self:provider.stage}-mongouri}
 
 package:
   patterns:
     - "!node_modules/**"
     - "!*.json"
+    - "!LICENSE"
+
+layers:
+  layerDefault:
+    name: ${self:service}-${self:provider.stage}-layerDefault
+    description: "Default libraries"
+    path: ./layers/layerDefault
 
 functions:
   exampleFunction:
@@ -19,3 +36,12 @@ functions:
       - http:
           path: example
           method: get
+
+  exampleEcmaFunction:
+    handler: exampleEcmaModule.handler
+    events:
+      - http:
+          path: example/ecma
+          method: post
+    layers:
+      - !Ref LayerDefaultLambdaLayer

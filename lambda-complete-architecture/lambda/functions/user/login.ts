@@ -2,8 +2,8 @@ import joi from "joi";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { User } from "../../database/models/User";
-import { connectToDatabase } from "../../database/connection";
 import { LambdaDefaultHandler } from "../../default-handler";
+import { connectToDatabase } from "../../database/connection";
 
 export const login = async (body: any) => {
   const { email, password } = body;

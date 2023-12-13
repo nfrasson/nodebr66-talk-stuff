@@ -5,8 +5,8 @@ provider:
   name: aws
   stage: dev
   region: sa-east-1
-  runtime: nodejs16.x
-  timeout: 10
+  runtime: nodejs20.x
+  timeout: 15
   memorySize: 256
   architecture: arm64
   logRetentionInDays: 1
@@ -30,6 +30,7 @@ package:
     - "!./lambda/**"
     - "!./node_modules/**"
     - "!./*.json"
+    - "!LICENSE"
 
 functions:
   register:

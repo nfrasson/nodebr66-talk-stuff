@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "target": "es2021",
+    "module": "CommonJS",
+    "paths": {
+      "mongoose": ["layers/layerDefault/nodejs/node_modules/mongoose"]
+    }
+  },
+  "exclude": ["node_modules"]
+}
