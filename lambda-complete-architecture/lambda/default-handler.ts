@@ -24,16 +24,21 @@ export const LambdaDefaultHandler = class {
     event: APIGatewayProxyEvent
   ): Promise<void | APIGatewayProxyResult> {
     try {
+      if (this.connectToDatabase) {
+        await this.connectToDatabase();
+      }
+
+      if (event.headers?.["x-iswarmup"]) {
+        console.log("WarmUp - Lambda is warm!");
+        return returnHandler({}, 200);
+      }
+
       const $body = await this.requestBodySchema.validateAsync(
         concatenateData(event),
         {
           abortEarly: false,
         }
       );
-
-      if (this.connectToDatabase) {
-        await this.connectToDatabase();
-      }
 
       const { statusCode, result } = await this.handler($body);
 
