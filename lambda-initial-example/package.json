@@ -3,6 +3,8 @@
   "scripts": {
     "deploy": "serverless deploy --verbose"
   },
-  "author": "Nicolas Frasson",
-  "license": "MIT"
+  "author": "Nicolas Frasson Boaroto",
+  "devDependencies": {
+    "serverless": "^3.38.0"
+  }
 }
